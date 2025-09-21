@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Love Mirror – Daily Mood Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366f1">
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💕</text></svg>">
+</head>
+<body>
+  <!-- Elegant Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <div class="mirror-reflection">💕</div>
+        <div class="loading-text">Love Mirror</div>
+      </div>
+      <div class="elegant-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clean Header -->
+  <header class="modern-header">
+    <div class="header-container">
+      <div class="brand">
+        <span class="brand-icon">💕</span>
+        <h1 class="brand-title">Love Mirror</h1>
+      </div>
+      <div class="header-meta">
+        <div class="current-date" id="currentDate"></div>
+        <div class="theme-toggle" id="themeToggle">
+          <button class="theme-btn" title="Toggle Dark Mode">
+            <span class="theme-icon" id="themeIcon">🌙</span>
+          </button>
+        </div>
+        <div class="streak-badge" id="streakBadge">
+          <span class="streak-icon">💖</span>
+          <span class="streak-count">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-container">
+    <!-- Hero Section -->
+    <section class="hero-card">
+      <h2 class="hero-title">How is your heart feeling today, my love?</h2>
+      <p class="hero-subtitle">Share your beautiful feelings with someone who cares deeply 💕</p>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats-panel">
+      <div class="stat-card">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+          <div class="stat-number" id="totalEntries">0</div>
+          <div class="stat-label">Love Entries</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💖</div>
+        <div class="stat-content">
+          <div class="stat-number" id="dominantMood">😊</div>
+          <div class="stat-label">Most Common</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-content">
+          <div class="stat-number" id="weeklyAvg">0</div>
+          <div class="stat-label">Weekly Avg</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mood Selection Grid -->
+    <section class="mood-section">
+      <div class="section-header">
+        <h3 class="section-title">Share Your Heart's Feeling</h3>
+        <div class="section-actions">
+          <button class="icon-btn" id="voiceBtn" title="Voice Input">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <path d="M12 19v4"/>
+              <path d="M8 23h8"/>
+            </svg>
+          </button>
+          <button class="icon-btn" id="helpBtn" title="Help">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <point cx="12" cy="17"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <div class="mood-grid" id="moodGrid"></div>
+      
+      <div class="mood-actions">
+        <button class="btn btn-secondary" id="randomizeBtn">
+          <span class="btn-icon">🎲</span>
+          Surprise Me
+        </button>
+        <div class="sound-toggle">
+          <input type="checkbox" id="muteToggle" class="toggle-input">
+          <label for="muteToggle" class="toggle-label">
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">Sound</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Result Display -->
+    <section class="result-panel" id="resultPanel">
+      <div class="result-card" id="resultCard">
+        <div class="result-header">
+          <h3 class="mood-title" id="selectedMood">Select a mood above</h3>
+          <div class="mood-meta" id="moodMeta"></div>
+        </div>
+        
+        <blockquote class="mood-quote" id="motivationalQuote">
+          Choose how you're feeling to receive loving words of comfort and support 💕
+        </blockquote>
+        
+        <div class="result-actions">
+          <button class="btn btn-primary" id="saveBtn">
+            <span class="btn-icon">💾</span>
+            Save With Love
+          </button>
+          <button class="btn btn-outline" id="shareBtn">
+            <span class="btn-icon">📱</span>
+            Share Love
+          </button>
+          <button class="btn btn-ghost" id="clearBtn">
+            <span class="btn-icon">✨</span>
+            Clear
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customization Panel -->
+    <section class="settings-panel">
+      <h3 class="section-title">Customize Your Love Experience</h3>
+      
+      <div class="settings-grid">
+        <div class="setting-card">
+          <div class="setting-header">
+            <div class="setting-icon">💾</div>
+            <div class="setting-info">
+              <div class="setting-name">Remember Love Settings</div>
+              <div class="setting-desc">Save preferences and restore loving sessions</div>
+            </div>
+          </div>
+          <input type="checkbox" id="persistToggle" class="toggle-input">
+          <label for="persistToggle" class="modern-toggle"></label>
+        </div>
+        
+        <div class="setting-card">
+          <div class="setting-header">
+            <div class="setting-icon">🔔</div>
+            <div class="setting-info">
+              <div class="setting-name">Daily Love Reminders</div>
+              <div class="setting-desc">Gentle notifications to check in with love</div>
+            </div>
+          </div>
+          <input type="checkbox" id="notificationsToggle" class="toggle-input">
+          <label for="notificationsToggle" class="modern-toggle"></label>
+        </div>
+
+        <div class="setting-card">
+          <div class="setting-header">
+            <div class="setting-icon">🔊</div>
+            <div class="setting-info">
+              <div class="setting-name">Love Sound Volume</div>
+              <div class="setting-desc">Adjust sweet audio feedback volume</div>
+            </div>
+          </div>
+          <input type="range" id="volumeRange" min="0" max="100" value="50" class="volume-slider">
+        </div>
+      </div>
+
+      <div class="intensity-section">
+        <label class="intensity-label">
+          Feeling Intensity: <span class="intensity-value" id="intensityLabel">3/5</span>
+        </label>
+        <div class="intensity-slider-container">
+          <input type="range" id="intensityRange" min="1" max="5" value="3" class="intensity-slider">
+          <div class="slider-track">
+            <div class="slider-fill" id="sliderFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notes-section">
+        <label class="notes-label">
+          <span class="label-icon">💭</span>
+          Your heart's thoughts (optional)
+        </label>
+        <div class="textarea-container">
+          <textarea id="notesInput" class="notes-input" placeholder="What's filling your heart today? Share your beautiful thoughts with love..." rows="3"></textarea>
+          <div class="char-counter">
+            <span id="charCount">0</span>/280
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- History Panel -->
+    <section class="history-panel" id="historyPanel">
+      <div class="section-header">
+        <h3 class="section-title">Your Beautiful Love Journey</h3>
+        <div class="history-controls">
+          <select id="historyFilter" class="filter-select">
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 30 days</option>
+            <option value="all">All time</option>
+          </select>
+          <button class="btn btn-outline btn-sm" id="exportBtn">
+            <span class="btn-icon">📤</span>
+            Export
+          </button>
+        </div>
+      </div>
+      
+      <div class="chart-placeholder">
+        <div class="chart-icon">💕</div>
+        <div class="chart-text">Beautiful mood trends chart coming soon</div>
+      </div>
+      
+      <div class="history-list" id="historyList"></div>
+      
+      <button class="btn btn-ghost btn-sm" id="clearHistoryBtn">
+        <span class="btn-icon">🗑️</span>
+        Clear History
+      </button>
+    </section>
+  </main>
+
+  <!-- Modern Modal -->
+  <div class="modal-backdrop" id="modalOverlay">
+    <div class="modal-container" id="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Modal Title</h3>
+        <button class="modal-close" id="modalClose">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-content" id="modalBody">
+        Modal content goes here
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <footer class="app-footer">
+    <p>Made with <span class="heart">💕</span> for your beautiful heart and mental wellness</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
